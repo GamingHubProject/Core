@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "id": "gaming-hub-official",
+  "name": "Gaming Hub Official",
+  "homepage": "https://example.invalid",
+  "extensions": [
+    {
+      "id": "gaming-hub-panel",
+      "name": "Gaming Hub Panel",
+      "description": "Panel integration package.",
+      "author": "Gaming Hub",
+      "category": "Integrations",
+      "repository": "https://github.com/example/gaming-hub-panel",
+      "release_asset": "gaming-hub-panel-v*.zip",
+      "checksum_asset": "SHA256SUMS",
+      "latest_version": "0.1.0",
+      "verified": true,
+      "official": true
+    }
+  ]
+}

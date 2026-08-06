@@ -1,0 +1,3 @@
+<?php
+namespace Azuriom\Plugin\GamingHubCore\Models; use Azuriom\Models\Traits\HasTablePrefix; use Illuminate\Database\Eloquent\Model;
+final class InstalledExtension extends Model { use HasTablePrefix; protected $prefix='gaminghub_'; protected $table='gaminghub_installed_extensions'; protected $fillable=['extension_id','installed_version','source_type','source_id','source_url','repository_url','release_url','release_id','asset_name','checksum','checksum_verified','trust_level','installed_by','installed_at','enabled_snapshot','manifest_snapshot','last_operation_result']; protected $casts=['checksum_verified'=>'boolean','installed_at'=>'datetime','enabled_snapshot'=>'boolean','manifest_snapshot'=>'array']; }

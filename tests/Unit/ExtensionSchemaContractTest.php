@@ -1,0 +1,3 @@
+<?php
+namespace Azuriom\Plugin\GamingHubCore\Tests\Unit; use PHPUnit\Framework\TestCase;
+final class ExtensionSchemaContractTest extends TestCase {public function test_examples_and_migrations_exist():void{$root=dirname(__DIR__,2);foreach(['examples/extensions.json','examples/gaming-hub-extension.json','examples/SHA256SUMS','database/migrations/2026_08_05_020000_create_gaminghub_extension_sources_table.php','database/migrations/2026_08_05_021000_create_gaminghub_installed_extensions_table.php','database/migrations/2026_08_05_022000_create_gaminghub_extension_operations_table.php'] as $f)$this->assertFileExists($root.'/'.$f);}}

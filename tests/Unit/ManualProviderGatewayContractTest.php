@@ -1,0 +1,3 @@
+<?php
+namespace Tests\Unit; use PHPUnit\Framework\TestCase;
+final class ManualProviderGatewayContractTest extends TestCase { public function test_existing_keys_and_states_are_preserved():void{$s=file_get_contents(dirname(__DIR__,2).'/src/Readers/ManualServerStatusReader.php');self::assertStringContainsString("['status']",$s);self::assertStringContainsString("['display_message']",$s);self::assertStringContainsString('new ServerStatusData',$s);} public function test_public_presenter_uses_gateway_not_provider_configuration():void{$s=file_get_contents(dirname(__DIR__,2).'/src/Services/PublicServerPresenter.php');self::assertStringContainsString("publicRead($server,'server-status')",$s);self::assertStringNotContainsString('validatedConfiguration',$s);} }

@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "id": "gaming-hub-example",
+  "name": "Gaming Hub Example",
+  "version": "0.1.0",
+  "type": "utility",
+  "description": "Example extension package.",
+  "author": "Gaming Hub",
+  "repository": "https://github.com/example/gaming-hub-example",
+  "requires": {
+    "gaming-hub-core": "^0.6.0",
+    "azuriom": "^1.2",
+    "php": ">=8.2",
+    "extensions": {}
+  },
+  "provides": {
+    "providers": [],
+    "capabilities": []
+  },
+  "consumes": {
+    "capabilities": [],
+    "extensions": []
+  },
+  "package": {
+    "plugin_directory": "gaming-hub-example",
+    "checksum_algorithm": "sha256"
+  },
+  "public_attribution_label": "Example"
+}
