@@ -1,3 +1,0 @@
-<?php
-namespace Azuriom\Plugin\GamingHubCore\Services; use Azuriom\Plugin\GamingHubCore\Exceptions\ChecksumMismatch;
-final class ExtensionChecksumVerifier { public function verify(string $file,?string $expected):string{$actual=hash_file('sha256',$file);if($expected!==null&&!hash_equals(strtolower(trim($expected)),strtolower($actual)))throw new ChecksumMismatch('SHA-256 checksum mismatch.');return $actual;} public function parse(string $text,string $asset):?string{foreach(preg_split('/\R/',$text) as $line){if(preg_match('/^([a-f0-9]{64})\s+\*?(.+)$/i',trim($line),$m)&&basename(trim($m[2]))===basename($asset))return strtolower($m[1]);if(preg_match('/^([a-f0-9]{64})$/i',trim($line),$m))return strtolower($m[1]);}return null;}}

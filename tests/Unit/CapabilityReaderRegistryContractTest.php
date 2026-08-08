@@ -1,3 +1,0 @@
-<?php
-namespace Tests\Unit; use PHPUnit\Framework\TestCase;
-final class CapabilityReaderRegistryContractTest extends TestCase { public function test_registration_is_validated_and_duplicates_rejected():void{$s=file_get_contents(dirname(__DIR__,2).'/src/Services/InMemoryCapabilityReaderRegistry.php');self::assertStringContainsString('DuplicateCapabilityReader',$s);self::assertStringContainsString('$this->types->get($providerType)',$s);self::assertStringContainsString('CapabilityReader::class',$s);} public function test_manual_reader_is_registered():void{$s=file_get_contents(dirname(__DIR__,2).'/src/Providers/GamingHubCoreServiceProvider.php');self::assertStringContainsString("register('manual', 'server-status', ManualServerStatusReader::class)",$s);} }

@@ -1,3 +1,0 @@
-<?php
-namespace Azuriom\Plugin\GamingHubCore\Tests\Unit; use PHPUnit\Framework\TestCase;
-final class ServerRegistryContractTest extends TestCase { public function test_schema_and_runtime_contract():void{$root=dirname(__DIR__,2);$migration=file_get_contents($root.'/database/migrations/2026_08_05_000000_create_gaminghub_servers_table.php');$model=file_get_contents($root.'/src/Models/Server.php');$this->assertStringContainsString("Schema::create('gaminghub_servers'",$migration);$this->assertStringContainsString("unique(['game_id','slug']",$migration);$this->assertStringContainsString("public function providers(): HasMany",$model);} }

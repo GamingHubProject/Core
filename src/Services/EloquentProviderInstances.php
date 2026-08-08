@@ -1,9 +1,0 @@
-<?php
-namespace Azuriom\Plugin\GamingHubCore\Services; use Azuriom\Plugin\GamingHubCore\Contracts\ProviderInstances; use Azuriom\Plugin\GamingHubCore\Contracts\ProviderTypeRegistry; use Azuriom\Plugin\GamingHubCore\Data\ProviderInstanceData; use Azuriom\Plugin\GamingHubCore\Models\ProviderInstance; use Azuriom\Plugin\GamingHubCore\Validation\ProviderConfigurationValidator; use Carbon\CarbonImmutable;
-final class EloquentProviderInstances implements ProviderInstances { public function __construct(private ProviderTypeRegistry $types,private ProviderConfigurationValidator $validator){}
- public function forServer(int $id,bool $all=true):array{$q=ProviderInstance::query()->with('server:id,game_id')->where('server_id',$id)->ordered();if(!$all)$q->enabled();return $q->get()->map(fn($m)=>$this->dto($m))->all();}
- public function enabledForServerByCapability(int $id,string $cap):array{if(!in_array($cap,InMemoryProviderTypeRegistry::CAPABILITIES,true))throw new \InvalidArgumentException("Unsupported capability [$cap].");return array_values(array_filter($this->forServer($id,false),fn($p)=>($t=$this->types->find($p->providerType))!==null&&$t->available&&$t->supports($cap)));}
- public function findForServer(int $sid,int $pid):?ProviderInstanceData{$m=ProviderInstance::query()->with('server:id,game_id')->where('server_id',$sid)->find($pid);return $m?$this->dto($m):null;}
- public function validatedConfiguration(int $sid,int $pid):array{$p=ProviderInstance::query()->where('server_id',$sid)->findOrFail($pid);return $this->validator->validate($this->types->get($p->provider_type),(array)$p->configuration);}
- private function dto(ProviderInstance $m):ProviderInstanceData{return new ProviderInstanceData($m->id,$m->server_id,(int)$m->server?->game_id,$m->provider_type,$m->name,$m->enabled,$m->position,(array)$m->configuration,$m->created_at?CarbonImmutable::instance($m->created_at):null,$m->updated_at?CarbonImmutable::instance($m->updated_at):null);}
-}

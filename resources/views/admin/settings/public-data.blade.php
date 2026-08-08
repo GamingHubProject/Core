@@ -1,5 +1,0 @@
-@extends('admin.layouts.admin')
-@section('title','Public Data')
-@section('content')
-<div class="card"><div class="card-header"><h1 class="h4 mb-0">Public Data</h1></div><div class="card-body"><p class="text-muted">Control which normalized statistics may be shown publicly. Source attribution is hidden by default.</p><form method="POST" action="{{ route('gaming-hub-core.admin.settings.public-data.update') }}">@csrf @method('PUT')<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Statistic</th><th>Public</th><th>Source attribution</th></tr></thead><tbody>@foreach($keys as $key)<tr><td><code>{{ $key }}</code></td><td><input type="hidden" name="visible[{{ $key }}]" value="0"><input class="form-check-input" type="checkbox" name="visible[{{ $key }}]" value="1" @checked($policies[$key]['visible'])></td><td><input type="hidden" name="attribution[{{ $key }}]" value="0"><input class="form-check-input" type="checkbox" name="attribution[{{ $key }}]" value="1" @checked($policies[$key]['attribution'])></td></tr>@endforeach</tbody></table></div><button class="btn btn-primary">{{ trans('messages.save') }}</button></form></div></div>
-@endsection
