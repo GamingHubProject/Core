@@ -1,0 +1,3 @@
+<?php
+namespace Azuriom\Plugin\GamingHubCore\Services; use Azuriom\Plugin\GamingHubCore\Contracts\CapabilityResolver; use Azuriom\Plugin\GamingHubCore\Contracts\ProviderInstances; use Azuriom\Plugin\GamingHubCore\Data\ProviderInstanceData; use Azuriom\Plugin\GamingHubCore\Models\Server;
+final class DefaultCapabilityResolver implements CapabilityResolver { public function __construct(private readonly ProviderInstances $providers){} public function resolve(Server $server,string $capability):?ProviderInstanceData{return $this->providers->enabledForServerByCapability((int)$server->getKey(),$capability)[0]??null;} }

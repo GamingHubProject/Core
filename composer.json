@@ -1,0 +1,14 @@
+{
+  "name": "gaming-hub/gaming-hub-core",
+  "description": "Pure platform plugin for Gaming Hub games, servers, providers, public pages, and shared data.",
+  "type": "azuriom-plugin",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Azuriom\\Plugin\\GamingHubCore\\": "src/"
+    }
+  },
+  "require": {
+    "php": ">=8.2"
+  }
+}

@@ -1,0 +1,3 @@
+<?php
+use Illuminate\Database\Migrations\Migration; use Illuminate\Database\Schema\Blueprint; use Illuminate\Support\Facades\Schema;
+return new class extends Migration { public function up():void{Schema::create('gaminghub_public_data_policies',function(Blueprint $t):void{$t->increments('id');$t->unsignedInteger('server_id');$t->string('stat_key',100);$t->string('visibility',10)->default('inherit');$t->string('attribution',10)->default('inherit');$t->timestamps();$t->unique(['server_id','stat_key'],'gaminghub_public_policy_server_stat_unique');$t->foreign('server_id')->references('id')->on('gaminghub_servers')->cascadeOnDelete();});} public function down():void{Schema::dropIfExists('gaminghub_public_data_policies');} };

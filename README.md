@@ -1,4 +1,4 @@
-# Gaming Hub Core v0.7.0
+# Gaming Hub Core v0.7.11
 
 Gaming Hub Core is the platform plugin for Azuriom Gaming Hub installations. It provides:
 
@@ -16,7 +16,7 @@ The bundled provider remains Manual Status. External integrations such as Pelica
 
 ## Package lifecycle ownership
 
-Starting with v0.7.0, Gaming Hub Core no longer installs, updates, uninstalls, discovers, or manages packages. Gaming Hub Manager is the standalone package lifecycle owner.
+Starting with v0.7.0, and continuing in v0.7.11, Gaming Hub Core does not install, update, uninstall, discover, or manage packages. Gaming Hub Manager is the standalone package lifecycle owner.
 
 Core does not require Gaming Hub Manager. When Manager is enabled, Core adds one permission-aware **Package Manager** link that opens `gaming-hub-manager.admin.overview`. When Manager is absent or disabled, Core registers no link and continues normally.
 

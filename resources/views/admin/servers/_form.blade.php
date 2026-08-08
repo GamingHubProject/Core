@@ -1,0 +1,8 @@
+@csrf
+@if(isset($server)) @method('PUT') @endif
+@foreach(['name'=>'text','slug'=>'text','short_description'=>'text','icon_url'=>'url','banner_url'=>'url','hostname'=>'text','display_port'=>'number','join_url'=>'url','position'=>'number'] as $field=>$type)
+<div class="mb-3"><label class="form-label" for="{{ $field }}">{{ trans('gaming-hub-core::admin.fields.'.$field) }}</label><input class="form-control @error($field) is-invalid @enderror" id="{{ $field }}" name="{{ $field }}" type="{{ $type }}" value="{{ old($field,$server->{$field} ?? ($field==='position'?0:'')) }}" @if(in_array($field,['name','slug','position'])) required @endif>@error($field)<div class="invalid-feedback">{{ $message }}</div>@enderror</div>
+@endforeach
+<div class="mb-3"><label class="form-label" for="long_description">{{ trans('gaming-hub-core::admin.fields.long_description') }}</label><textarea class="form-control" id="long_description" name="long_description" rows="6">{{ old('long_description',$server->long_description ?? '') }}</textarea></div>
+@foreach(['enabled','public'] as $field)<div class="form-check mb-3"><input type="hidden" name="{{ $field }}" value="0"><input class="form-check-input" type="checkbox" id="{{ $field }}" name="{{ $field }}" value="1" @checked(old($field,$server->{$field} ?? true))><label class="form-check-label" for="{{ $field }}">{{ trans('gaming-hub-core::admin.fields.'.$field) }}</label></div>@endforeach
+<button class="btn btn-primary" type="submit">{{ trans('gaming-hub-core::admin.actions.save') }}</button><a class="btn btn-secondary" href="{{ route('gaming-hub-core.admin.games.servers.index',$game) }}">{{ trans('gaming-hub-core::admin.actions.cancel') }}</a>

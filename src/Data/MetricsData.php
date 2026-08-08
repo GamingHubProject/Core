@@ -1,0 +1,3 @@
+<?php
+namespace Azuriom\Plugin\GamingHubCore\Data; use Carbon\CarbonImmutable;
+final readonly class MetricsData { public function __construct(public ?float $cpuPercent=null,public ?int $memoryUsedBytes=null,public ?int $memoryLimitBytes=null,public ?int $diskUsedBytes=null,public ?CarbonImmutable $observedAt=null,public ?CarbonImmutable $sourceUpdatedAt=null){} public function toArray():array{return array_filter(['resources.cpu_percent'=>$this->cpuPercent,'resources.memory_used_bytes'=>$this->memoryUsedBytes,'resources.memory_limit_bytes'=>$this->memoryLimitBytes,'resources.disk_used_bytes'=>$this->diskUsedBytes,'observed_at'=>$this->observedAt?->toIso8601String(),'source_updated_at'=>$this->sourceUpdatedAt?->toIso8601String()],fn($v)=>$v!==null);} }
