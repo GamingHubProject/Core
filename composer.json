@@ -3,7 +3,7 @@
     "description": "Gaming Hub Core plugin: domain models (Games, Servers, Instances, Providers), capability decisions, and data normalization. Never speaks to connectors directly — that's Panel's job.",
     "type": "library",
     "license": "MIT",
-    "version": "0.1.020",
+    "version": "0.1.021",
     "require": {
         "php": "^8.2",
         "illuminate/database": "^11.0",

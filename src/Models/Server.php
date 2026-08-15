@@ -26,6 +26,10 @@ class Server extends Model
         'status',
         'max_players',
         'current_players',
+        'cpu_usage_percent',
+        'memory_usage_bytes',
+        'game_version',
+        'last_polled_at',
         'metadata',
     ];
 
@@ -33,6 +37,7 @@ class Server extends Model
     {
         return [
             'metadata' => 'array',
+            'last_polled_at' => 'datetime',
         ];
     }
 

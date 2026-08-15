@@ -23,6 +23,7 @@ class Provider extends Model
     protected $fillable = [
         'server_id',
         'connector_instance_id',
+        'priority',
         'config',
         'status',
         'last_check',

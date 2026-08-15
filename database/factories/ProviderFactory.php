@@ -18,6 +18,7 @@ class ProviderFactory extends Factory
         return [
             'server_id' => Server::factory(),
             'connector_instance_id' => null,
+            'priority' => 0,
             'config' => [],
             'status' => fake()->randomElement(['connected', 'disconnected', 'error']),
         ];

@@ -4,6 +4,7 @@ namespace GamingHub\Core\Capabilities;
 
 use GamingHub\Core\Contracts\CapabilityProviderContract;
 use GamingHub\Core\Models\CapabilityBinding;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
@@ -33,10 +34,25 @@ class CapabilityRouter
 
     public function findBinding(string $capability, Model $subject): ?CapabilityBinding
     {
+        return $this->findBindings($capability, $subject)->first();
+    }
+
+    /**
+     * All bindings for a (capability, subject) pair, ordered by priority —
+     * lowest number first. More than one can exist: e.g. a server's
+     * "server-status" may be served by several providers at once, each
+     * contributing different fields (see CapabilityGateway::probe()).
+     *
+     * @return Collection<int, CapabilityBinding>
+     */
+    public function findBindings(string $capability, Model $subject): Collection
+    {
         return CapabilityBinding::query()
             ->where('capability', $capability)
             ->where('subject_type', $subject->getMorphClass())
             ->where('subject_id', $subject->getKey())
-            ->first();
+            ->orderBy('priority')
+            ->orderBy('id')
+            ->get();
     }
 }
