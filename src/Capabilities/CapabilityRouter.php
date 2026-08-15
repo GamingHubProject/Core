@@ -4,17 +4,19 @@ namespace GamingHub\Core\Capabilities;
 
 use GamingHub\Core\Contracts\CapabilityProviderContract;
 use GamingHub\Core\Models\CapabilityBinding;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
 
 /**
  * The one registry of capability providers, and how a (capability, subject)
- * pair resolves to a binding + the provider that serves it. This is Core's
- * "capability definitions & routing" — Platform's CapabilityGateway (acting
- * as Panel) asks this the decision, then either invokes the provider
- * directly (manual) or, for a real Connector-backed provider, invokes the
- * connector itself and hands the raw payload back to Core to normalize.
+ * pair resolves to a binding + the provider that serves it.
+ *
+ * This is deliberately the *simple*, single-value fallback path — a plain
+ * admin-entered "default" with no external I/O (see ManualProvider). The
+ * real priority stack for Server capabilities (REST above Pelican above
+ * this default) lives on Provider.priority and is walked directly by
+ * Platform's CapabilityGateway; a CapabilityBinding is not that mechanism
+ * and is never auto-generated on a Provider's behalf.
  */
 class CapabilityRouter
 {
@@ -34,25 +36,10 @@ class CapabilityRouter
 
     public function findBinding(string $capability, Model $subject): ?CapabilityBinding
     {
-        return $this->findBindings($capability, $subject)->first();
-    }
-
-    /**
-     * All bindings for a (capability, subject) pair, ordered by priority —
-     * lowest number first. More than one can exist: e.g. a server's
-     * "server-status" may be served by several providers at once, each
-     * contributing different fields (see CapabilityGateway::probe()).
-     *
-     * @return Collection<int, CapabilityBinding>
-     */
-    public function findBindings(string $capability, Model $subject): Collection
-    {
         return CapabilityBinding::query()
             ->where('capability', $capability)
             ->where('subject_type', $subject->getMorphClass())
             ->where('subject_id', $subject->getKey())
-            ->orderBy('priority')
-            ->orderBy('id')
-            ->get();
+            ->first();
     }
 }

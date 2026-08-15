@@ -6,10 +6,12 @@ use GamingHub\Core\Contracts\NormalizerContract;
 use InvalidArgumentException;
 
 /**
- * The one registry of normalizers. Platform registers game/connector-specific
- * normalizers here at boot (e.g. "palworld-server-status",
- * "pelican-server-status") — Core just holds the registry and the contract,
- * it never authors game-specific normalization logic itself.
+ * The one registry of normalizers. Both the contract and the concrete
+ * normalizer classes (GamingHub\Core\Normalizers\*) live in Core — data
+ * normalization is Core's job. Platform's AppServiceProvider registers
+ * instances here at boot (still Platform's job to decide *when* a
+ * normalizer is available, e.g. gated by an InstalledPackage's enabled
+ * state), but never authors the normalization logic itself.
  */
 class NormalizerRegistry
 {
