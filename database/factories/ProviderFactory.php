@@ -17,6 +17,7 @@ class ProviderFactory extends Factory
     {
         return [
             'server_id' => Server::factory(),
+            'type' => 'connector',
             'connector_instance_id' => null,
             'priority' => 0,
             'config' => [],

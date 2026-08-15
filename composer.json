@@ -16,7 +16,8 @@
     "autoload": {
         "psr-4": {
             "GamingHub\\Core\\": "src/",
-            "GamingHub\\Core\\Database\\Factories\\": "database/factories/"
+            "GamingHub\\Core\\Database\\Factories\\": "database/factories/",
+            "GamingHub\\Core\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
