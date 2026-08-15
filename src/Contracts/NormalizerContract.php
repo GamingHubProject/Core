@@ -16,10 +16,17 @@ use GamingHub\Core\Capabilities\CapabilityValue;
  * normalizer actually serves, without hardcoding any per-game assumption: a
  * Provider only participates in resolving a capability if its normalizer's
  * declared capability matches the one being requested.
+ *
+ * $config is the owning Provider's own config JSON, passed through
+ * unchanged. A fixed-shape normalizer (Pelican's) ignores it — its
+ * capability is a constant. A generic, admin-configured normalizer
+ * (FieldMappingNormalizer) reads its target capability and field mapping
+ * from it instead of hardcoding either, which is what makes it usable for
+ * any game's REST API without a per-game class.
  */
 interface NormalizerContract
 {
-    public function normalize(array $raw): CapabilityValue;
+    public function normalize(array $raw, array $config = []): CapabilityValue;
 
-    public function capability(): string;
+    public function capability(array $config = []): string;
 }

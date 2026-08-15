@@ -17,7 +17,7 @@ use GamingHub\Core\Contracts\NormalizerContract;
  */
 class PelicanServerStatusNormalizer implements NormalizerContract
 {
-    public function normalize(array $raw): CapabilityValue
+    public function normalize(array $raw, array $config = []): CapabilityValue
     {
         $attributes = $raw['attributes'] ?? null;
 
@@ -35,7 +35,7 @@ class PelicanServerStatusNormalizer implements NormalizerContract
         ]);
     }
 
-    public function capability(): string
+    public function capability(array $config = []): string
     {
         return 'server-status';
     }
