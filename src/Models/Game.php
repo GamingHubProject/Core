@@ -25,7 +25,6 @@ class Game extends Model
         'status',
         'has_servers',
         'metadata',
-        'configuration_schema',
     ];
 
     protected function casts(): array
@@ -33,7 +32,6 @@ class Game extends Model
         return [
             'has_servers' => 'boolean',
             'metadata' => 'array',
-            'configuration_schema' => 'array',
         ];
     }
 

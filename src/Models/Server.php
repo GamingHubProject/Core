@@ -46,14 +46,22 @@ class Server extends Model
         return $this->belongsTo(Game::class);
     }
 
-    public function instances(): HasMany
-    {
-        return $this->hasMany(Instance::class);
-    }
-
     public function providers(): HasMany
     {
         return $this->hasMany(Provider::class);
+    }
+
+    /**
+     * Whether this server has at least one connector-backed provider (as
+     * opposed to only manual providers, or none at all) — Platform uses
+     * this to decide whether the live-stats fields on this Server are
+     * driven by PollProviders and should be read-only in the admin form.
+     * Deliberately stops here: knowing *which* connector is Platform's
+     * concern (it needs ConnectorInstance, a Platform model), not Core's.
+     */
+    public function hasConnectorProvider(): bool
+    {
+        return $this->providers()->where('type', 'connector')->exists();
     }
 
     protected static function newFactory(): ServerFactory
