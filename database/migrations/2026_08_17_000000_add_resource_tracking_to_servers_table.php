@@ -18,13 +18,13 @@ return new class extends Migration
         Schema::table('servers', function (Blueprint $table) {
             $table->unsignedBigInteger('cpu_current')->nullable();
             $table->unsignedBigInteger('cpu_limit')->nullable();
-            $table->unsignedDecimal('cpu_percent', 5, 2)->nullable();
+            $table->decimal('cpu_percent', 5, 2)->unsigned()->nullable();
             $table->unsignedBigInteger('memory_current')->nullable();
             $table->unsignedBigInteger('memory_limit')->nullable();
-            $table->unsignedDecimal('memory_percent', 5, 2)->nullable();
+            $table->decimal('memory_percent', 5, 2)->unsigned()->nullable();
             $table->unsignedBigInteger('disk_current')->nullable();
             $table->unsignedBigInteger('disk_limit')->nullable();
-            $table->unsignedDecimal('disk_percent', 5, 2)->nullable();
+            $table->decimal('disk_percent', 5, 2)->unsigned()->nullable();
             $table->unsignedBigInteger('network_rx')->nullable();
             $table->unsignedBigInteger('network_tx')->nullable();
             $table->string('node_name')->nullable();
