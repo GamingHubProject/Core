@@ -24,6 +24,7 @@ class CapabilityValue
         public readonly string $status,
         public readonly array $data = [],
         public readonly ?Carbon $resolvedAt = null,
+        public readonly ?string $error = null,
     ) {}
 
     public static function ok(string $capability, array $data, ?Carbon $resolvedAt = null): self
@@ -36,9 +37,15 @@ class CapabilityValue
         return new self($capability, self::UNSUPPORTED);
     }
 
-    public static function unavailable(string $capability): self
+    /**
+     * $error is the underlying failure reason (an exception message from a
+     * connector fetch, typically) — never shown to a Hub Extension, only
+     * ever read by Platform to persist onto Provider.error_message so an
+     * admin can see why a provider went unavailable.
+     */
+    public static function unavailable(string $capability, ?string $error = null): self
     {
-        return new self($capability, self::UNAVAILABLE);
+        return new self($capability, self::UNAVAILABLE, error: $error);
     }
 
     public static function stale(string $capability, array $data, Carbon $resolvedAt): self
