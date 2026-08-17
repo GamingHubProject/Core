@@ -6,10 +6,14 @@ use GamingHub\Core\Capabilities\CapabilityValue;
 
 /**
  * Translates a connector's raw payload into a normalized CapabilityValue.
- * This is Core's "data normalization" job, and the concrete normalizer
- * classes live in Core (GamingHub\Core\Normalizers) — Core never fetches
- * the raw payload itself (that's Panel calling a Connector), it only shapes
- * what comes back, but the shaping logic itself belongs here, not Platform.
+ * This is the "data normalization" step — Core never fetches the raw
+ * payload itself (that's Panel calling a Connector), it only shapes what
+ * comes back. Core's own generic normalizers (GamingHub\Core\Normalizers,
+ * e.g. FieldMapping) implement this contract directly; a normalizer built
+ * around one specific external system's fixed response shape can just as
+ * well live outside Core entirely and travel with the Connector package
+ * that produces the raw data it shapes — Core only defines the contract
+ * and never needs to know which is which.
  *
  * capability() lets a generic caller — the Provider priority stack in
  * CapabilityGateway — know which capability a given Provider's chosen
@@ -18,11 +22,11 @@ use GamingHub\Core\Capabilities\CapabilityValue;
  * declared capability matches the one being requested.
  *
  * $config is the owning Provider's own config JSON, passed through
- * unchanged. A fixed-shape normalizer (Pelican's) ignores it — its
- * capability is a constant. A generic, admin-configured normalizer
- * (FieldMappingNormalizer) reads its target capability and field mapping
- * from it instead of hardcoding either, which is what makes it usable for
- * any game's REST API without a per-game class.
+ * unchanged. A fixed-shape normalizer (built around one specific external
+ * system's API) ignores it — its capability is a constant. A generic,
+ * admin-configured normalizer (FieldMappingNormalizer) reads its target
+ * capability and field mapping from it instead of hardcoding either, which
+ * is what makes it usable for any game's REST API without a per-game class.
  */
 interface NormalizerContract
 {
