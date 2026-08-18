@@ -24,6 +24,7 @@ class CapabilityBinding extends Model
         'provider',
         'value',
         'enabled',
+        'source_provider_id',
     ];
 
     protected function casts(): array

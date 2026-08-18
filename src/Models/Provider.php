@@ -36,6 +36,8 @@ class Provider extends Model
         'status',
         'last_check',
         'error_message',
+        'last_raw_response',
+        'polling_cadence_seconds',
     ];
 
     protected function casts(): array
@@ -43,12 +45,26 @@ class Provider extends Model
         return [
             'config' => 'array',
             'last_check' => 'datetime',
+            'last_raw_response' => 'array',
         ];
     }
 
     public function server(): BelongsTo
     {
         return $this->belongsTo(Server::class);
+    }
+
+    /**
+     * Independent of (and never faster than) ConnectorInstance::isDueForPoll()
+     * — that gates the shared credentialed connection this Provider's
+     * connector_instance_id points at; this gates this one Provider's own
+     * refresh rate within a tick where the instance is already due. Same
+     * null-means-never-checked-yet shape as ConnectorInstance's version.
+     */
+    public function isDueForPoll(): bool
+    {
+        return ! $this->last_check
+            || $this->last_check->diffInSeconds(now()) >= $this->polling_cadence_seconds;
     }
 
     protected static function newFactory(): ProviderFactory

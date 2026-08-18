@@ -40,6 +40,7 @@ class Server extends Model
         'network_rx',
         'network_tx',
         'node_name',
+        'supported_features',
         'game_version',
         'last_polled_at',
         'metadata',
@@ -49,6 +50,7 @@ class Server extends Model
     {
         return [
             'metadata' => 'array',
+            'supported_features' => 'array',
             'last_polled_at' => 'datetime',
         ];
     }
@@ -61,6 +63,11 @@ class Server extends Model
     public function providers(): HasMany
     {
         return $this->hasMany(Provider::class);
+    }
+
+    public function allocations(): HasMany
+    {
+        return $this->hasMany(ServerAllocation::class);
     }
 
     /**
